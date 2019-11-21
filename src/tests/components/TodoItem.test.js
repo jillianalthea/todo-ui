@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
-import TodoItem from '../TodoItem';
+import TodoItem from '../../components/TodoItem';
 
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -14,7 +14,7 @@ describe('Todo Item test', () => {
     const props = {
         todoItem: {
             text: "buy dog",
-            isComplete: true,
+            complete: true,
             id: "123456",
             creationDate: "2019-01-01",
             completeDate: "2019-02-15",
@@ -28,7 +28,7 @@ describe('Todo Item test', () => {
     });
 
     it('renders checkbox with not completed status', () => {
-        props.todoItem.isComplete = false;
+        props.todoItem.complete = false;
         const wrapper = shallow(<TodoItem {...props} />);
         const checkbox = wrapper.find({type: 'checkbox'});
         expect(checkbox.props().checked).toEqual(false);
@@ -38,7 +38,7 @@ describe('Todo Item test', () => {
         const wrapper = shallow(<TodoItem {...props} />);
         
         const todoText = wrapper.find({type: 'text'});
-        expect(todoText.props().children).toEqual('buy dog');
+        expect(todoText.props().value).toEqual('buy dog');
     });
 
     it('renders a label with date created', () => {

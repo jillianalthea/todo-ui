@@ -1,0 +1,17 @@
+[
+    {
+        "text": "buy dog",
+        "complete": true,
+        "id": "123456",
+        "creationDate": "2019-01-01",
+        "completeDate": "2019-02-15",
+        "priority": 1
+    },
+    {
+        "text": "sell house",
+        "complete": false,
+        "id": "654321",
+        "creationDate": "2019-01-01",
+        "priority": 2
+    }
+]

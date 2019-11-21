@@ -4,8 +4,8 @@ import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
-import TodoItem from '../TodoItem';
-import TodoList from '../TodoList';
+import TodoItem from '../../components/TodoItem';
+import TodoList from '../../components/TodoList';
 
 Enzyme.configure({ adapter: new Adapter() });
 
