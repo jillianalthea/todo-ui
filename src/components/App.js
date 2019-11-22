@@ -11,19 +11,24 @@ class App extends Component {
 
     this.props.getAllTodoItems();
   }
+
+  
   render() {
-    if (this.props.todos) {
-      console.log(this.props);
-      return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <TodoList todoList={this.props.todos}/>
-          </header>
-        </div>
-      );
-    }
-    return false;
+    console.log(this.props);
+    const displayList = this.props.todos.data && this.props.todos.data.length > 0;
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          { displayList &&
+            <TodoList todoList={this.props.todos.data}/>
+          }
+          {this.props.todos.error &&
+            <div>Errored! {this.props.todos.error.message}</div>
+          }
+        </header>
+      </div>
+    );
   }
 }
 

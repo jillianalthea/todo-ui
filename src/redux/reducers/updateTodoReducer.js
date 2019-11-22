@@ -1,12 +1,8 @@
 import {TODO_ACTIONS} from '../actions/types';
-const getTodosReducer = (state = [], action = {}) => {
+
+const updateTodoReducer = (state = [], action = {}) => {
     switch (action.type) {
-        case TODO_ACTIONS.GET_ALL.SUCCESS:
-            console.log('got todos');
-            return {
-                data: action.todos
-            };
-        case TODO_ACTIONS.GET_ALL.FAILURE:
+        case TODO_ACTIONS.UPDATE.FAILURE:
             console.log('error', action);
             return {
                 error: action.error

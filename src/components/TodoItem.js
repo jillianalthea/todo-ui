@@ -1,10 +1,31 @@
 import React, { Component } from 'react';
-
+import {connect} from 'react-redux';
+import {markTodo} from '../redux/actions/todoActions';
 
 class TodoItem extends Component {
 
-    onCheckboxClick(id, isClicked) {
-        this.props.dispatch({type: 'UPDATE', id: id, onSale: isClicked})
+    applyStrikeThrough() {
+        console.log('applying strike through')
+        if(this.props.todoItem.complete){
+            console.log('to be struck through --', `todoItem_${this.props.todoItem.itemId}`)
+            document.getElementById(`todoItem_${this.props.todoItem.itemId}`).style.textDecoration = 'line-through';
+        } else {
+            document.getElementById(`todoItem_${this.props.todoItem.itemId}`).style.textDecoration = 'none';
+        }
+    }
+
+    componentDidUpdate() {
+        this.applyStrikeThrough();
+    }
+
+    componentDidMount() {
+        this.applyStrikeThrough();
+    }
+
+    onCheckboxClick(todoItem, isChecked) {
+        todoItem.complete = isChecked;
+        console.log('todoItem', todoItem);
+        this.props.markTodo(todoItem)
     }
 
     render () {
@@ -14,12 +35,11 @@ class TodoItem extends Component {
                     <input type='checkbox' checked={this.props.todoItem.complete}  
                     onChange= {(event) => {     
                         console.log("checking event", event.target.checked);
-                        
-                        this.onCheckboxClick(this.props.todo.id, event.target.checked)}
+                        this.onCheckboxClick(this.props.todoItem, event.target.checked)}
                     }/>
                 </div>
                 <div className='grid-item'>
-                    <input type='text' readOnly={true} value={this.props.todoItem.text} />
+                    <input type='text' readOnly={true} value={this.props.todoItem.text} id={`todoItem_${this.props.todoItem.itemId}`}/>
                 </div>
                 <div className='grid-item'>
                     <label id={`createDate_${this.props.todoItem.id}`} >{this.props.todoItem.creationDate}</label>
@@ -35,5 +55,11 @@ class TodoItem extends Component {
 }
 
 
-
-export default TodoItem;
+ 
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      markTodo: (todoItem) => markTodo(dispatch, todoItem)
+    }
+  }
+  
+export default connect(null, mapDispatchToProps)(TodoItem);
